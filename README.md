@@ -13,7 +13,7 @@ It contains:
 
 ### Swift Package Manager
 
-You can install PKSNavigation using the [Swift Package Manager](https://swift.org/package-manager/):
+You can install TPackage using the [Swift Package Manager](https://swift.org/package-manager/):
 
 1. In Xcode, open your project and navigate to File → Swift Packages → Add Package Dependency...
 2. Paste the repository URL: https://github.com/Harlech1/TPackage.git
