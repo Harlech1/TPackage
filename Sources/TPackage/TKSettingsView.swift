@@ -112,28 +112,28 @@ struct TKSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         TKSettingsView()
         
-        // Özelleştirilmiş örnek
+        // Custom example
         TKSettingsView(
-            title: "Ayarlar",
+            title: "Settings",
             sections: [
-                .init(header: "Hesap", items: [
+                .init(header: "Account", items: [
                     .init(
                         icon: "person.circle.fill",
                         iconBackgroundColor: .blue,
-                        title: "Profil",
-                        action: { print("Profil tıklandı") }
+                        title: "Profile",
+                        action: { print("Profile tapped") }
                     ),
                     .init(
                         icon: "key.fill",
                         iconBackgroundColor: .green,
-                        title: "Güvenlik",
-                        action: { print("Güvenlik tıklandı") }
+                        title: "Security",
+                        action: { print("Security tapped") }
                     ),
                     .init(
                         icon: "bell.fill",
                         iconBackgroundColor: .orange,
-                        title: "Bildirimler",
-                        action: { print("Bildirimler tıklandı") }
+                        title: "Notifications",
+                        action: { print("Notifications tapped") }
                     )
                 ])
             ]

@@ -129,19 +129,19 @@ struct TKPaywallView_Previews: PreviewProvider {
         
         TKPaywallView(
             headerImage: "crown.fill",
-            title: "Premium'a Yükselt",
-            subtitle: "Tüm özelliklere sınırsız erişim kazanın",
+            title: "Upgrade to Premium",
+            subtitle: "Get unlimited access to all features",
             symbolColor: .purple,
             features: [
                 .init(
                     icon: "infinity",
-                    title: "Sınırsız Erişim",
-                    description: "Tüm premium içeriklere sınırsız erişim"
+                    title: "Unlimited Access",
+                    description: "Unlimited access to all premium content"
                 ),
                 .init(
                     icon: "bell.fill",
-                    title: "Bildirimler",
-                    description: "Özel bildirimlerle haberdar olun"
+                    title: "Notifications",
+                    description: "Stay informed with special notifications"
                 )
             ]
         )
