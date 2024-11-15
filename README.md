@@ -53,7 +53,6 @@ struct ContentView: View {
 }
 ```
 
-<img src="https://github.com/user-attachments/assets/78cb4139-fc5e-44ff-91f2-85a5e5979a99" width="128"/>
 
 Here's a simple example for using TKSettingsView:
 
@@ -91,6 +90,9 @@ struct ContentView: View {
     }
 }
 ```
+
+<img src="https://github.com/user-attachments/assets/78cb4139-fc5e-44ff-91f2-85a5e5979a99" width="300"/>
+
 
 
 
