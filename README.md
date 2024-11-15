@@ -53,10 +53,9 @@ struct ContentView: View {
 }
 ```
 
-| Main View                                                   | Detail View                                                        |
-| ----------------------------------------------------------- | ------------------------------------------------------------------ |
-| <img src="https://github.com/user-attachments/assets/d8215e74-3c64-41e4-92ea-0f60ce9f501f" width="300"/>
- | <img src="https://github.com/user-attachments/assets/e0af2c70-6eeb-4328-8194-e96aa20ffde6" width="300"/> |
+| Main View                                                                                                | Detail View                                                                                |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/user-attachments/assets/d8215e74-3c64-41e4-92ea-0f60ce9f501f" width="300"/> | <img src="https://github.com/user-attachments/assets/e0af2c70-6eeb-4328-8194-e96aa20ffde6" width="300"/> |
 
 Here's a simple example for using TKSettingsView:
 
