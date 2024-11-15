@@ -52,6 +52,8 @@ struct ContentView: View {
     }
 }
 ```
+![IMG_3283](https://github.com/user-attachments/assets/78cb4139-fc5e-44ff-91f2-85a5e5979a99)
+
 Here's a simple example for using TKSettingsView:
 
 ```swift
