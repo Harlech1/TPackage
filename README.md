@@ -53,7 +53,7 @@ struct ContentView: View {
 }
 ```
 
-| Main View                                                                                                | Detail View                                                                                |
+| Tap to show Paywall                                                                                      | TKPaywallView                                                                              |
 | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | <img src="https://github.com/user-attachments/assets/d8215e74-3c64-41e4-92ea-0f60ce9f501f" width="300"/> | <img src="https://github.com/user-attachments/assets/e0af2c70-6eeb-4328-8194-e96aa20ffde6" width="300"/> |
 
@@ -93,9 +93,6 @@ struct ContentView: View {
     }
 }
 ```
-![IMG_3285](https://github.com/user-attachments/assets/e0af2c70-6eeb-4328-8194-e96aa20ffde6)
-![IMG_3284](https://github.com/user-attachments/assets/d8215e74-3c64-41e4-92ea-0f60ce9f501f)
-
 
 <img src="https://github.com/user-attachments/assets/78cb4139-fc5e-44ff-91f2-85a5e5979a99" width="300"/>
 
