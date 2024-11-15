@@ -9,6 +9,16 @@ It contains:
 - Settings View
 - Documents View
 
+## Installation
+
+### Swift Package Manager
+
+You can install PKSNavigation using the [Swift Package Manager](https://swift.org/package-manager/):
+
+1. In Xcode, open your project and navigate to File → Swift Packages → Add Package Dependency...
+2. Paste the repository URL: https://github.com/Harlech1/TPackage.git
+3. Click Next and select the version you want to use
+
 ## Usage
 
 Here's a simple example for using TKPaywallView:
