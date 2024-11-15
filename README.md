@@ -1,6 +1,8 @@
 [![Swift](https://img.shields.io/badge/Swift-5.9+-orange.svg)](https://swift.org)
 [![iOS](https://img.shields.io/badge/iOS-15.0+-blue.svg)](https://developer.apple.com/ios/)
 
+## About
+
 A boilerplate for swift.
 It contains:
 - Onboarding/Paywall View
@@ -9,7 +11,7 @@ It contains:
 
 ## Usage
 
-Here's a simple example for showing TKPaywallView:
+Here's a simple example for using TKPaywallView:
 
 ```swift
 import SwiftUI
@@ -40,3 +42,42 @@ struct ContentView: View {
     }
 }
 ```
+Here's a simple example for using TKSettingsView:
+
+```swift
+import SwiftUI
+import TPackage
+
+struct ContentView: View {
+    var body: some View {
+        TKSettingsView(
+            title: "Settings",
+            sections: [
+                .init(header: "Account", items: [
+                    .init(
+                        icon: "person.circle.fill",
+                        iconBackgroundColor: .blue,
+                        title: "Profile",
+                        action: { print("Profile tapped") }
+                    ),
+                    .init(
+                        icon: "key.fill",
+                        iconBackgroundColor: .green,
+                        title: "Security",
+                        action: { print("Security tapped") }
+                    ),
+                    .init(
+                        icon: "bell.fill",
+                        iconBackgroundColor: .orange,
+                        title: "Notifications",
+                        action: { print("Notifications tapped") }
+                    )
+                ])
+            ]
+        )
+    }
+}
+```
+
+
+
