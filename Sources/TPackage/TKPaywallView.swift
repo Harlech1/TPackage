@@ -1,4 +1,6 @@
 import SwiftUI
+import RevenueCat
+import RevenueCatUI
 
 @available(iOS 15.0, macOS 10.15, *)
 public struct TKPaywallView: View {
@@ -7,7 +9,8 @@ public struct TKPaywallView: View {
     private var subtitle: String
     private var symbolColor: Color
     private var features: [FeatureItem]
-    
+    @Binding var showPaywall: Bool
+
     public struct FeatureItem {
         let icon: String
         let title: String
@@ -29,6 +32,7 @@ public struct TKPaywallView: View {
         title: String = "Your Feature Title Here",
         subtitle: String = "Add your subtitle text here. Describe your main features or value proposition.",
         symbolColor: Color = .blue,
+        showPaywall: Binding<Bool>,
         features: [FeatureItem] = [
             .init(
                 icon: "star.fill",
@@ -57,6 +61,7 @@ public struct TKPaywallView: View {
         self.subtitle = subtitle
         self.symbolColor = symbolColor
         self.features = features
+        self._showPaywall = showPaywall
     }
     
     public var body: some View {
@@ -102,6 +107,13 @@ public struct TKPaywallView: View {
                 }
             }.padding(.horizontal, 16)
         }
+        .paywallFooter()
+        .onPurchaseCompleted { _ in
+            showPaywall.toggle()
+        }
+        .onRestoreCompleted { _ in
+            showPaywall.toggle()
+        }
     }
 }
 
@@ -138,13 +150,12 @@ private struct FeatureRow: View {
 @available(iOS 15.0, macOS 10.15, *)
 struct TKPaywallView_Previews: PreviewProvider {
     static var previews: some View {
-        TKPaywallView()
-        
         TKPaywallView(
             headerImage: "crown.fill",
             title: "Upgrade to Premium",
             subtitle: "Get unlimited access to all features",
             symbolColor: .purple,
+            showPaywall: .constant(false),
             features: [
                 .init(
                     icon: "infinity",
