@@ -2,9 +2,11 @@ import SwiftUI
 
 @available(iOS 15.0, macOS 10.15, *)
 public struct TKSettingsView: View {
-    private var title: String
     private var sections: [SettingsSection]
-    
+    private let appId: String
+    private let appName: String
+    private let appUrl: String
+
     public struct SettingsSection {
         let header: String
         let items: [SettingsItem]
@@ -42,68 +44,96 @@ public struct TKSettingsView: View {
     
     public init(
         title: String = "Settings",
-        sections: [SettingsSection] = [
-            .init(header: "Account", items: [
-                .init(
-                    icon: "airplane",
-                    iconBackgroundColor: .orange,
-                    title: "Airplane Mode",
-                    action: { print("Profile tapped") }
-                ),
-                .init(
-                    icon: "wifi",
-                    iconBackgroundColor: .blue,
-                    title: "Wi-Fi",
-                    action: { print("Notifications tapped") }
-                )
-            ]),
-            .init(header: "General", items: [
-                .init(
-                    icon: "gear",
-                    iconBackgroundColor: .gray,
-                    title: "Preferences",
-                    action: { print("Preferences tapped") }
-                ),
-                .init(
-                    icon: "info",
-                    iconBackgroundColor: .blue,
-                    title: "About",
-                    action: { print("About tapped") }
-                )
-            ])
-        ]
+        appId: String = "",
+        appName: String = "",
+        appUrl: String = "",
+        sections: [SettingsSection]? = nil
     ) {
-        self.title = title
-        self.sections = sections
+        self.appId = appId
+        self.appName = appName
+        self.appUrl = appUrl
+
+        if let sections = sections {
+            self.sections = sections
+        } else {
+            self.sections = [
+                .init(header: "Help us to grow", items: [
+                    .init(
+                        icon: "square.and.arrow.up",
+                        iconBackgroundColor: .red,
+                        title: "Share App",
+                        action: { TKSettingsView.shareApp(appUrl: appUrl) }
+                    ),
+                    .init(
+                        icon: "star.fill",
+                        iconBackgroundColor: .yellow,
+                        title: "Rate Us",
+                        action: { TKSettingsView.openAppStoreForRating(appId: appId) }
+                    ),
+                    .init(
+                        icon: "doc.fill",
+                        iconBackgroundColor: .blue,
+                        title: "Feedback",
+                        action: { TKSettingsView.sendEmail(to: "developerturker1@gmail.com", subject: "Feedback on \(appName)", body: "Hello, I'd like to provide some feedback...") }
+                    )
+                ])
+            ]
+        }
     }
     
+    private static func openAppStoreForRating(appId: String) {
+        if let url = URL(string: "itms-apps://itunes.apple.com/app/id\(appId)/?action=write-review") {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    private static func sendEmail(to: String, subject: String, body: String) {
+        let email = "mailto:\(to)?subject=\(subject)&body=\(body)"
+        if let url = URL(string: email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
+
+    private static func shareApp(appUrl: String) {
+        let url = URL(string: appUrl)!
+        let activityVC = UIActivityViewController(
+            activityItems: [url],
+            applicationActivities: nil
+        )
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first,
+           let rootVC = window.rootViewController {
+            rootVC.present(activityVC, animated: true)
+        }
+    }
+
     public var body: some View {
-        NavigationView {
-            Form {
-                ForEach(sections, id: \.header) { section in
-                    Section(header: Text(section.header)) {
-                        ForEach(section.items, id: \.title) { item in
-                            Label {
-                                Text(item.title)
-                                    .foregroundStyle(.primary)
-                            } icon: {
-                                Image(systemName: item.icon)
-                                    .foregroundStyle(item.iconColor)
-                                    .font(.system(size: 14))
-                                    .frame(width: 28, height: 28)
-                                    .background(item.iconBackgroundColor)
-                                    .clipShape(RoundedRectangle(cornerRadius: 6))
-                            }
-                            .onTapGesture {
-                                item.action()
-                            }
-                        }
+        ForEach(sections, id: \.header) { section in
+            Section(header: Text(section.header)) {
+                ForEach(section.items, id: \.title) { item in
+                    Label {
+                        Text(item.title)
+                            .foregroundStyle(.primary)
+                    } icon: {
+                        Image(systemName: item.icon)
+                            .foregroundStyle(item.iconColor)
+                            .font(.system(size: 12))
+                            .frame(width: 28, height: 28)
+                            .background(item.iconBackgroundColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                    }
+                    .onTapGesture {
+                        item.action()
                     }
                 }
             }
-            .navigationTitle(title)
         }
     }
+
+    
 }
 
 #if DEBUG
