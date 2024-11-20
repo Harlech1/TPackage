@@ -60,35 +60,48 @@ public struct TKPaywallView: View {
     }
     
     public var body: some View {
-        ScrollView(showsIndicators: false) {
-            Image(systemName: headerImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundStyle(symbolColor)
-                .frame(width: 64, height: 64, alignment: .center)
-                .padding(.top, 48)
+        ZStack {
+            LinearGradient(
+                colors: [
+                    symbolColor.opacity(0.2),
+                    .clear
+                ],
+                startPoint: .topTrailing,
+                endPoint: .bottomLeading
+            )
+            .ignoresSafeArea()
             
-            Text(title)
-                .font(.title2)
-                .bold()
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                .padding(.top, 12)
-            
-            Text(subtitle)
-                .foregroundStyle(.gray)
-                .font(.title3)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal)
-            
-            ForEach(features, id: \.title) { feature in
-                FeatureRow(feature: feature, symbolColor: symbolColor)
-                    .padding(.horizontal, 24)
-                    .padding(.top, 24)
-            }
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    Image(systemName: headerImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(symbolColor)
+                        .frame(width: 64, height: 64, alignment: .center)
+                        .padding(.top, 48)
+                    
+                    Text(title)
+                        .font(.title2)
+                        .bold()
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 12)
+                    
+                    Text(subtitle)
+                        .foregroundStyle(.gray)
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal)
+                    
+                    ForEach(features, id: \.title) { feature in
+                        FeatureRow(feature: feature, symbolColor: symbolColor)
+                            .padding(.horizontal, 24)
+                            .padding(.top, 24)
+                    }
+                }
+            }.padding(.horizontal, 16)
         }
-        .padding(.horizontal, 16)
     }
 }
 
