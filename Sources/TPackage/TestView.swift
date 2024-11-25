@@ -11,7 +11,7 @@ struct TestView: View {
     var body: some View {
         NavigationView {
             Form {
-                TKSettingsView(appId: "6737987351", appName: "Concrete Calculator", appUrl: "https://apps.apple.com/us/app/concrete-calculator/id6737987351")
+                Text("Test")
             }
         }.navigationTitle("Settings")
     }

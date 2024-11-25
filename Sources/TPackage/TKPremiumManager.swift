@@ -6,17 +6,15 @@ import RevenueCat
 public class TKPremiumManager: ObservableObject {
     public static let shared = TKPremiumManager()
     private var isConfigured = false
-    var entitlementIdentifier: String = "Pro"
+    var entitlementIdentifier: String
     
     @Published public var isPremium: Bool = false
     
-    public init() {
-        Task {
-            await checkPremiumStatus()
-        }
+    init() {
+        self.entitlementIdentifier = ""
     }
     
-    public func configure(apiKey: String, entitlementIdentifier: String = "Pro") {
+    public func configure(apiKey: String, entitlementIdentifier: String) {
         guard !isConfigured else {
             print("TKPremiumManager is already configured")
             return
@@ -26,13 +24,21 @@ public class TKPremiumManager: ObservableObject {
         Purchases.logLevel = .debug
         Purchases.configure(withAPIKey: apiKey)
         isConfigured = true
+        
+        Task {
+            await checkPremiumStatus()
+        }
+    }
+    
+    func isEntitlementActive(_ customerInfo: CustomerInfo) -> Bool {
+        customerInfo.entitlements[entitlementIdentifier]?.isActive == true
     }
     
     @MainActor
     public func checkPremiumStatus() async {
         do {
             let customerInfo = try await Purchases.shared.customerInfo()
-            self.isPremium = customerInfo.entitlements[entitlementIdentifier]?.isActive == true
+            self.isPremium = isEntitlementActive(customerInfo)
             print("Premium Status: \(self.isPremium)")
         } catch {
             print("Failed to fetch customer info: \(error.localizedDescription)")
@@ -44,7 +50,7 @@ public class TKPremiumManager: ObservableObject {
     public func restorePurchases() async -> Bool {
         do {
             let customerInfo = try await Purchases.shared.restorePurchases()
-            self.isPremium = customerInfo.entitlements[entitlementIdentifier]?.isActive == true
+            self.isPremium = isEntitlementActive(customerInfo)
             return self.isPremium
         } catch {
             print("Error restoring purchases: \(error)")

@@ -29,8 +29,8 @@ public struct TKSettingsView: View {
         
         public init(
             icon: String,
-            iconColor: Color = .white,
-            iconBackgroundColor: Color = .blue,
+            iconColor: Color,
+            iconBackgroundColor: Color,
             title: String,
             action: @escaping () -> Void
         ) {
@@ -43,42 +43,15 @@ public struct TKSettingsView: View {
     }
     
     public init(
-        title: String = "Settings",
-        appId: String = "",
-        appName: String = "",
-        appUrl: String = "",
-        sections: [SettingsSection]? = nil
+        appId: String,
+        appName: String,
+        appUrl: String,
+        sections: [SettingsSection]
     ) {
         self.appId = appId
         self.appName = appName
         self.appUrl = appUrl
-
-        if let sections = sections {
-            self.sections = sections
-        } else {
-            self.sections = [
-                .init(header: "Help us to grow", items: [
-                    .init(
-                        icon: "square.and.arrow.up",
-                        iconBackgroundColor: .red,
-                        title: "Share App",
-                        action: { TKSettingsView.shareApp(appUrl: appUrl) }
-                    ),
-                    .init(
-                        icon: "star.fill",
-                        iconBackgroundColor: .yellow,
-                        title: "Rate Us",
-                        action: { TKSettingsView.openAppStoreForRating(appId: appId) }
-                    ),
-                    .init(
-                        icon: "doc.fill",
-                        iconBackgroundColor: .blue,
-                        title: "Feedback",
-                        action: { TKSettingsView.sendEmail(to: "developerturker1@gmail.com", subject: "Feedback on \(appName)", body: "Hello, I'd like to provide some feedback...") }
-                    )
-                ])
-            ]
-        }
+        self.sections = sections
     }
     
     private static func openAppStoreForRating(appId: String) {
@@ -132,38 +105,31 @@ public struct TKSettingsView: View {
             }
         }
     }
-
-    
 }
 
 #if DEBUG
 @available(iOS 15.0, macOS 10.15, *)
 struct TKSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        TKSettingsView()
-        
-        // Custom example
         TKSettingsView(
-            title: "Settings",
+            appId: "123456789",
+            appName: "My App",
+            appUrl: "https://apps.apple.com/app/123456789",
             sections: [
                 .init(header: "Account", items: [
                     .init(
                         icon: "person.circle.fill",
+                        iconColor: .white,
                         iconBackgroundColor: .blue,
                         title: "Profile",
                         action: { print("Profile tapped") }
                     ),
                     .init(
                         icon: "key.fill",
+                        iconColor: .white,
                         iconBackgroundColor: .green,
                         title: "Security",
                         action: { print("Security tapped") }
-                    ),
-                    .init(
-                        icon: "bell.fill",
-                        iconBackgroundColor: .orange,
-                        title: "Notifications",
-                        action: { print("Notifications tapped") }
                     )
                 ])
             ]

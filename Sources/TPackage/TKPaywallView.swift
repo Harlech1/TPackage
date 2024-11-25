@@ -29,33 +29,12 @@ public struct TKPaywallView: View {
     }
     
     public init(
-        headerImage: String = "star.fill",
-        title: String = "Your Feature Title Here",
-        subtitle: String = "Add your subtitle text here. Describe your main features or value proposition.",
-        symbolColor: Color = .blue,
-        displayCloseButton: Bool = true,
-        features: [FeatureItem] = [
-            .init(
-                icon: "star.fill",
-                title: "Feature One",
-                description: "Describe your first feature here."
-            ),
-            .init(
-                icon: "heart.fill",
-                title: "Feature Two",
-                description: "Describe your second feature."
-            ),
-            .init(
-                icon: "bolt.fill",
-                title: "Feature Three",
-                description: "Describe your third feature."
-            ),
-            .init(
-                icon: "sparkles",
-                title: "Feature Four",
-                description: "Describe your fourth feature."
-            )
-        ]
+        headerImage: String,
+        title: String,
+        subtitle: String,
+        symbolColor: Color,
+        displayCloseButton: Bool,
+        features: [FeatureItem]
     ) {
         self.headerImage = headerImage
         self.title = title
@@ -125,7 +104,7 @@ public struct TKPaywallView: View {
         }
         .paywallFooter()
         .onPurchaseCompleted { customerInfo in
-            if customerInfo.entitlements[TKPremiumManager.shared.entitlementIdentifier]?.isActive == true {
+            if TKPremiumManager.shared.isEntitlementActive(customerInfo) {
                 dismiss()
             }
             Task {
@@ -133,7 +112,7 @@ public struct TKPaywallView: View {
             }
         }
         .onRestoreCompleted { customerInfo in
-            if customerInfo.entitlements[TKPremiumManager.shared.entitlementIdentifier]?.isActive == true {
+            if TKPremiumManager.shared.isEntitlementActive(customerInfo) {
                 dismiss()
             }
             Task {
