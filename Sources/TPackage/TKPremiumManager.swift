@@ -6,7 +6,7 @@ import RevenueCat
 public class TKPremiumManager: ObservableObject {
     public static let shared = TKPremiumManager()
     private var isConfigured = false
-    private var entitlementIdentifier: String = "Pro"
+    var entitlementIdentifier: String = "Pro"
     
     @Published public var isPremium: Bool = false
     

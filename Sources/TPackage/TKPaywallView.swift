@@ -9,6 +9,7 @@ public struct TKPaywallView: View {
     private var subtitle: String
     private var symbolColor: Color
     private var features: [FeatureItem]
+    private var displayCloseButton: Bool
     @Environment(\.dismiss) private var dismiss
 
     public struct FeatureItem {
@@ -32,6 +33,7 @@ public struct TKPaywallView: View {
         title: String = "Your Feature Title Here",
         subtitle: String = "Add your subtitle text here. Describe your main features or value proposition.",
         symbolColor: Color = .blue,
+        displayCloseButton: Bool = true,
         features: [FeatureItem] = [
             .init(
                 icon: "star.fill",
@@ -60,6 +62,7 @@ public struct TKPaywallView: View {
         self.subtitle = subtitle
         self.symbolColor = symbolColor
         self.features = features
+        self.displayCloseButton = displayCloseButton
     }
     
     public var body: some View {
@@ -76,12 +79,26 @@ public struct TKPaywallView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack {
+                    if displayCloseButton {
+                        HStack {
+                            Spacer()
+                            Button {
+                                dismiss()
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title2)
+                                    .foregroundStyle(.gray)
+                                    .padding()
+                            }
+                        }
+                    }
+                    
                     Image(systemName: headerImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .foregroundStyle(symbolColor)
                         .frame(width: 64, height: 64, alignment: .center)
-                        .padding(.top, 48)
+                        .padding(.top, displayCloseButton ? 0 : 32)
                     
                     Text(title)
                         .font(.title2)
@@ -107,7 +124,7 @@ public struct TKPaywallView: View {
         }
         .paywallFooter()
         .onPurchaseCompleted { customerInfo in
-            if customerInfo.entitlements["Pro"]?.isActive == true {
+            if customerInfo.entitlements[TKPremiumManager.shared.entitlementIdentifier]?.isActive == true {
                 dismiss()
             }
             Task {
@@ -115,7 +132,7 @@ public struct TKPaywallView: View {
             }
         }
         .onRestoreCompleted { customerInfo in
-            if customerInfo.entitlements["Pro"]?.isActive == true {
+            if customerInfo.entitlements[TKPremiumManager.shared.entitlementIdentifier]?.isActive == true {
                 dismiss()
             }
             Task {
@@ -163,6 +180,7 @@ struct TKPaywallView_Previews: PreviewProvider {
             title: "Upgrade to Premium",
             subtitle: "Get unlimited access to all features",
             symbolColor: .purple,
+            displayCloseButton: true,
             features: [
                 .init(
                     icon: "infinity",
