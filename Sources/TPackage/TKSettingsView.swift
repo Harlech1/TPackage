@@ -3,8 +3,6 @@ import SwiftUI
 @available(iOS 15.0, macOS 10.15, *)
 public struct TKSettingsView: View {
     private var items: [SettingsItem]
-    private let appId: String
-    private let appName: String
 
     public struct SettingsItem {
         let icon: String
@@ -29,22 +27,18 @@ public struct TKSettingsView: View {
     }
     
     public init(
-        appId: String,
-        appName: String,
         items: [SettingsItem]
     ) {
-        self.appId = appId
-        self.appName = appName
         self.items = items
     }
     
-    private static func openAppStoreForRating(appId: String) {
+    public static func openAppStoreForRating(appId: String) {
         if let url = URL(string: "itms-apps://itunes.apple.com/app/id\(appId)/?action=write-review") {
             UIApplication.shared.open(url)
         }
     }
 
-    private static func sendEmail(to: String, subject: String, body: String) {
+    public static func sendEmail(to: String, subject: String, body: String) {
         let email = "mailto:\(to)?subject=\(subject)&body=\(body)"
         if let url = URL(string: email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             if UIApplication.shared.canOpenURL(url) {
@@ -95,8 +89,6 @@ public struct TKSettingsView: View {
 struct TKSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         TKSettingsView(
-            appId: "123456789",
-            appName: "My App",
             items: [
                 .init(
                     icon: "person.circle.fill",
