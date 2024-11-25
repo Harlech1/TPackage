@@ -78,7 +78,7 @@ public struct TKPaywallView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundStyle(symbolColor)
                         .frame(width: 64, height: 64, alignment: .center)
-                        .padding(.top, displayCloseButton ? 0 : 32)
+                        .padding(.top, displayCloseButton ? 0 : 16)
 
                     Text(title)
                         .font(.title2)
