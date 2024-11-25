@@ -9,7 +9,7 @@ public struct TKPaywallView: View {
     private var subtitle: String
     private var symbolColor: Color
     private var features: [FeatureItem]
-    @Binding var showPaywall: Bool
+    @Environment(\.dismiss) private var dismiss
 
     public struct FeatureItem {
         let icon: String
@@ -32,7 +32,6 @@ public struct TKPaywallView: View {
         title: String = "Your Feature Title Here",
         subtitle: String = "Add your subtitle text here. Describe your main features or value proposition.",
         symbolColor: Color = .blue,
-        showPaywall: Binding<Bool>,
         features: [FeatureItem] = [
             .init(
                 icon: "star.fill",
@@ -61,7 +60,6 @@ public struct TKPaywallView: View {
         self.subtitle = subtitle
         self.symbolColor = symbolColor
         self.features = features
-        self._showPaywall = showPaywall
     }
     
     public var body: some View {
@@ -108,11 +106,15 @@ public struct TKPaywallView: View {
             }.padding(.horizontal, 16)
         }
         .paywallFooter()
-        .onPurchaseCompleted { _ in
-            showPaywall.toggle()
+        .onPurchaseCompleted { customerInfo in
+            if customerInfo.entitlements["Pro"]?.isActive == true {
+                dismiss()
+            }
         }
-        .onRestoreCompleted { _ in
-            showPaywall.toggle()
+        .onRestoreCompleted { customerInfo in
+            if customerInfo.entitlements["Pro"]?.isActive == true {
+                dismiss()
+            }
         }
     }
 }
@@ -155,7 +157,6 @@ struct TKPaywallView_Previews: PreviewProvider {
             title: "Upgrade to Premium",
             subtitle: "Get unlimited access to all features",
             symbolColor: .purple,
-            showPaywall: .constant(false),
             features: [
                 .init(
                     icon: "infinity",
