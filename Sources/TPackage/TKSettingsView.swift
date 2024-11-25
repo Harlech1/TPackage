@@ -2,23 +2,10 @@ import SwiftUI
 
 @available(iOS 15.0, macOS 10.15, *)
 public struct TKSettingsView: View {
-    private var sections: [SettingsSection]
+    private var items: [SettingsItem]
     private let appId: String
     private let appName: String
     private let appUrl: String
-
-    public struct SettingsSection {
-        let header: String
-        let items: [SettingsItem]
-        
-        public init(
-            header: String,
-            items: [SettingsItem]
-        ) {
-            self.header = header
-            self.items = items
-        }
-    }
     
     public struct SettingsItem {
         let icon: String
@@ -46,12 +33,12 @@ public struct TKSettingsView: View {
         appId: String,
         appName: String,
         appUrl: String,
-        sections: [SettingsSection]
+        items: [SettingsItem]
     ) {
         self.appId = appId
         self.appName = appName
         self.appUrl = appUrl
-        self.sections = sections
+        self.items = items
     }
     
     private static func openAppStoreForRating(appId: String) {
@@ -84,24 +71,20 @@ public struct TKSettingsView: View {
     }
 
     public var body: some View {
-        ForEach(sections, id: \.header) { section in
-            Section(header: Text(section.header)) {
-                ForEach(section.items, id: \.title) { item in
-                    Label {
-                        Text(item.title)
-                            .foregroundStyle(.primary)
-                    } icon: {
-                        Image(systemName: item.icon)
-                            .foregroundStyle(item.iconColor)
-                            .font(.system(size: 12))
-                            .frame(width: 28, height: 28)
-                            .background(item.iconBackgroundColor)
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
-                    }
-                    .onTapGesture {
-                        item.action()
-                    }
-                }
+        ForEach(items, id: \.title) { item in
+            Label {
+                Text(item.title)
+                    .foregroundStyle(.primary)
+            } icon: {
+                Image(systemName: item.icon)
+                    .foregroundStyle(item.iconColor)
+                    .font(.system(size: 12))
+                    .frame(width: 28, height: 28)
+                    .background(item.iconBackgroundColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+            }
+            .onTapGesture {
+                item.action()
             }
         }
     }
@@ -115,23 +98,21 @@ struct TKSettingsView_Previews: PreviewProvider {
             appId: "123456789",
             appName: "My App",
             appUrl: "https://apps.apple.com/app/123456789",
-            sections: [
-                .init(header: "Account", items: [
-                    .init(
-                        icon: "person.circle.fill",
-                        iconColor: .white,
-                        iconBackgroundColor: .blue,
-                        title: "Profile",
-                        action: { print("Profile tapped") }
-                    ),
-                    .init(
-                        icon: "key.fill",
-                        iconColor: .white,
-                        iconBackgroundColor: .green,
-                        title: "Security",
-                        action: { print("Security tapped") }
-                    )
-                ])
+            items: [
+                .init(
+                    icon: "person.circle.fill",
+                    iconColor: .white,
+                    iconBackgroundColor: .blue,
+                    title: "Profile",
+                    action: { print("Profile tapped") }
+                ),
+                .init(
+                    icon: "key.fill",
+                    iconColor: .white,
+                    iconBackgroundColor: .green,
+                    title: "Security",
+                    action: { print("Security tapped") }
+                )
             ]
         )
     }
