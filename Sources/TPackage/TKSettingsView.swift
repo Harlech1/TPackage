@@ -53,18 +53,21 @@ public struct TKSettingsView: View {
         }
     }
 
-    private static func shareApp(appUrl: String) {
-        let url = URL(string: appUrl)!
+    public static func shareApp(appUrl: String) {
+        guard let url = URL(string: appUrl),
+              let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first,
+              let rootVC = window.rootViewController else {
+            print("Failed to share app: Invalid URL or window configuration")
+            return
+        }
+        
         let activityVC = UIActivityViewController(
             activityItems: [url],
             applicationActivities: nil
         )
-
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first,
-           let rootVC = window.rootViewController {
-            rootVC.present(activityVC, animated: true)
-        }
+        
+        rootVC.present(activityVC, animated: true)
     }
 
     public var body: some View {
