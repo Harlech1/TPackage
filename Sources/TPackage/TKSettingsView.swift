@@ -75,20 +75,22 @@ public struct TKSettingsView: View {
 
     public var body: some View {
         ForEach(items, id: \.title) { item in
-            Label {
-                Text(item.title)
-                    .foregroundStyle(.primary)
-            } icon: {
-                Image(systemName: item.icon)
-                    .foregroundStyle(item.iconColor)
-                    .font(.system(size: 12))
-                    .frame(width: 28, height: 28)
-                    .background(item.iconBackgroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 6))
+            Button(action: item.action) {
+                Label {
+                    Text(item.title)
+                        .foregroundStyle(.primary)
+                } icon: {
+                    Image(systemName: item.icon)
+                        .foregroundStyle(item.iconColor)
+                        .font(.system(size: 12))
+                        .frame(width: 28, height: 28)
+                        .background(item.iconBackgroundColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
             }
-            .onTapGesture {
-                item.action()
-            }
+            .buttonStyle(.plain)
         }
     }
 }
@@ -97,24 +99,28 @@ public struct TKSettingsView: View {
 @available(iOS 15.0, macOS 10.15, *)
 struct TKSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        TKSettingsView(
-            items: [
-                .init(
-                    icon: "person.circle.fill",
-                    iconColor: .white,
-                    iconBackgroundColor: .blue,
-                    title: "Profile",
-                    action: { print("Profile tapped") }
-                ),
-                .init(
-                    icon: "key.fill",
-                    iconColor: .white,
-                    iconBackgroundColor: .green,
-                    title: "Security",
-                    action: { print("Security tapped") }
+        Form {
+            Section {
+                TKSettingsView(
+                    items: [
+                        .init(
+                            icon: "person.circle.fill",
+                            iconColor: .white,
+                            iconBackgroundColor: .blue,
+                            title: "Profile",
+                            action: { print("Profile tapped") }
+                        ),
+                        .init(
+                            icon: "key.fill",
+                            iconColor: .white,
+                            iconBackgroundColor: .green,
+                            title: "Security",
+                            action: { print("Security tapped") }
+                        )
+                    ]
                 )
-            ]
-        )
+            }
+        }
     }
 }
 #endif 
