@@ -110,10 +110,16 @@ public struct TKPaywallView: View {
             if customerInfo.entitlements["Pro"]?.isActive == true {
                 dismiss()
             }
+            Task {
+                await TKPremiumManager.shared.checkPremiumStatus()
+            }
         }
         .onRestoreCompleted { customerInfo in
             if customerInfo.entitlements["Pro"]?.isActive == true {
                 dismiss()
+            }
+            Task {
+                await TKPremiumManager.shared.checkPremiumStatus()
             }
         }
     }
