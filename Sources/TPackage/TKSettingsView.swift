@@ -5,8 +5,7 @@ public struct TKSettingsView: View {
     private var items: [SettingsItem]
     private let appId: String
     private let appName: String
-    private let appUrl: String
-    
+
     public struct SettingsItem {
         let icon: String
         let iconColor: Color
@@ -32,12 +31,10 @@ public struct TKSettingsView: View {
     public init(
         appId: String,
         appName: String,
-        appUrl: String,
         items: [SettingsItem]
     ) {
         self.appId = appId
         self.appName = appName
-        self.appUrl = appUrl
         self.items = items
     }
     
@@ -97,7 +94,6 @@ struct TKSettingsView_Previews: PreviewProvider {
         TKSettingsView(
             appId: "123456789",
             appName: "My App",
-            appUrl: "https://apps.apple.com/app/123456789",
             items: [
                 .init(
                     icon: "person.circle.fill",
