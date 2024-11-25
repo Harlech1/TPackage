@@ -61,6 +61,15 @@ public struct TKSettingsView: View {
             applicationActivities: nil
         )
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activityVC.popoverPresentationController?.sourceView = window
+            activityVC.popoverPresentationController?.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2,
+                                                                        y: UIScreen.main.bounds.height / 2,
+                                                                        width: 0,
+                                                                        height: 0)
+            activityVC.popoverPresentationController?.permittedArrowDirections = []
+        }
+        
         rootVC.present(activityVC, animated: true)
     }
 
