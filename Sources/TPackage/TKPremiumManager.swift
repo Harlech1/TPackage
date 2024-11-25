@@ -10,7 +10,7 @@ public class TKPremiumManager: ObservableObject {
     
     @Published public var isPremium: Bool = false
     
-    init() {
+    public init() {
         Task {
             await checkPremiumStatus()
         }
