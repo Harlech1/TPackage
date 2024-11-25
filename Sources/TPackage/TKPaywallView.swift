@@ -87,7 +87,8 @@ public struct TKPaywallView: View {
                             } label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .font(.title2)
-                                    .foregroundStyle(.gray)
+                                    .symbolRenderingMode(.hierarchical)
+                                    .foregroundStyle(symbolColor)
                                     .padding()
                             }
                         }
@@ -99,7 +100,7 @@ public struct TKPaywallView: View {
                         .foregroundStyle(symbolColor)
                         .frame(width: 64, height: 64, alignment: .center)
                         .padding(.top, displayCloseButton ? 0 : 32)
-                    
+
                     Text(title)
                         .font(.title2)
                         .bold()
