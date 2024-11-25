@@ -53,7 +53,7 @@ public struct TKSettingsView: View {
         }
     }
 
-    public static func shareApp(appUrl: String) {
+    public static func shareAppLink(appUrl: String) {
         guard let url = URL(string: appUrl),
               let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first,
