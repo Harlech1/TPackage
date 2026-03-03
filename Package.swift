@@ -12,7 +12,7 @@ let package = Package(
             name: "TPackage",
             targets: ["TPackage"]),
     ],
-    dependencies: [.package(url: "https://github.com/RevenueCat/purchases-ios.git", exact: "5.8.0")],
+    dependencies: [.package(url: "https://github.com/RevenueCat/purchases-ios.git", exact: "5.60.0")],
     targets: [
         .target(
             name: "TPackage",
